@@ -1,0 +1,32 @@
+body {
+	background-color: black;
+	color: #fff;
+}
+
+.container {
+	max-width: 800px;
+	margin: 0 auto;
+	height: auto;
+	padding: 2rem;
+}
+
+.input {
+	padding: 0.3rem;
+}
+
+.todo-box {
+	display: grid;
+	grid-template-columns: 2fr 1fr 1fr 1fr;
+	gap: 0.5rem;
+	justify-items: center;
+	align-items: center;
+	margin: 2rem 0;
+}
+
+.todo-box button {
+	cursor: pointer;
+}
+
+.completed {
+	text-decoration: line-through;
+}
