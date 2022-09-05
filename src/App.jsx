@@ -4,56 +4,42 @@ import Form from "./components/Form";
 import TodoList from "./components/TodoList";
 
 const App = () => {
-	const [inputText, setInputText] = useState("");
-	const [todos, setTodos] = useState([]);
-	const [isEdit, setIsEdit] = useState(false);
-	const [filteredTodos, setFilteredTodos] = useState([]);
-	const [status, setStatus] = useState("all");
+  const [inputText, setInputText] = useState("");
+  const [todos, setTodos] = useState([]);
+  const [isEdit, setIsEdit] = useState(null);
+  const [filteredTodos, setFilteredTodos] = useState([]);
+  const [status, setStatus] = useState("all");
 
-	function handleEdit(e, id, text) {
-		e.preventDefault();
-		setTodos(todos.filter((todo) => todo.id !== id));
-		// setIsEdit(true);
-		setInputText(text);
-	}
-	useEffect(() => {
-		if (status === "completed") {
-			setFilteredTodos(todos.filter((todo) => todo.completed === true));
-			console.log(filteredTodos);
-		} else if (status === "incomplete") {
-			setFilteredTodos(todos.filter((todo) => todo.completed === false));
-		} else {
-			setFilteredTodos(todos);
-		}
-	}, [status, todos]);
+  useEffect(() => {
+    if (status === "completed") {
+      setFilteredTodos(todos.filter((todo) => todo.completed === true));
+      console.log(filteredTodos);
+    } else if (status === "incomplete") {
+      setFilteredTodos(todos.filter((todo) => todo.completed === false));
+    } else {
+      setFilteredTodos(todos);
+    }
+  }, [status, todos]);
 
-	return (
-		<div className='container'>
-			<Form
-				setInputText={setInputText}
-				setTodos={setTodos}
-				inputText={inputText}
-				todos={todos}
-				isEdit={isEdit}
-				setIsEdit={setIsEdit}
-				handleEdit={handleEdit}
-				setStatus={setStatus}
-				status={status}
-				setFilteredTodos={setFilteredTodos}
-				filteredTodos={filteredTodos}
-			/>
-			<TodoList
-				todos={todos}
-				isEdit={isEdit}
-				setIsEdit={setIsEdit}
-				setTodos={setTodos}
-				setInputText={setInputText}
-				handleEdit={handleEdit}
-				setFilteredTodos={setFilteredTodos}
-				filteredTodos={filteredTodos}
-			/>
-		</div>
-	);
+  return (
+    <div className="container">
+      <Form
+        setInputText={setInputText}
+        setTodos={setTodos}
+        inputText={inputText}
+        todos={todos}
+        setStatus={setStatus}
+        isEdit={isEdit}
+      />
+      <TodoList
+        todos={todos}
+        setIsEdit={setIsEdit}
+        setTodos={setTodos}
+        setInputText={setInputText}
+        filteredTodos={filteredTodos}
+      />
+    </div>
+  );
 };
 
 export default App;
