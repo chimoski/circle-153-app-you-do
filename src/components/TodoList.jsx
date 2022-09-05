@@ -8,9 +8,8 @@ const TodoList = ({
 	filteredTodos,
 }) => {
 	function handleComplete(e, id) {
-		e.preventDefault();
-		setFilteredTodos(
-			filteredTodos.map((todo) => {
+		setTodos(
+			todos.map((todo) => {
 				if (todo.id === id) {
 					return {
 						...todo,

@@ -16,6 +16,16 @@ const App = () => {
 		// setIsEdit(true);
 		setInputText(text);
 	}
+	useEffect(() => {
+		if (status === "completed") {
+			setFilteredTodos(todos.filter((todo) => todo.completed === true));
+			console.log(filteredTodos);
+		} else if (status === "incomplete") {
+			setFilteredTodos(todos.filter((todo) => todo.completed === false));
+		} else {
+			setFilteredTodos(todos);
+		}
+	}, [status, todos]);
 
 	return (
 		<div className='container'>

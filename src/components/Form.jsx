@@ -30,16 +30,6 @@ const Form = ({
 		// }
 	}
 
-	useEffect(() => {
-		if (status === "completed") {
-			setFilteredTodos(todos.filter((todo) => todo.completed === true));
-		} else if (status === "incomplete") {
-			setFilteredTodos(todos.filter((todo) => todo.completed === false));
-		} else {
-			setFilteredTodos(todos);
-		}
-	}, [status, JSON.stringify(todos)]);
-
 	return (
 		<div>
 			<form style={{ display: "flex", justifyContent: "space-between" }}>
