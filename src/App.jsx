@@ -8,7 +8,7 @@ const App = () => {
   const [todos, setTodos] = useState([]);
   const [isEdit, setIsEdit] = useState(null);
   const [filteredTodos, setFilteredTodos] = useState([]);
-  const [status, setStatus] = useState("all");
+  const [status, setStatus] = useState("All");
 
   useEffect(() => {
     const todoLists = JSON.parse(localStorage.getItem("todos"));
@@ -18,35 +18,36 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    if (status === "completed") {
+    if (status.toLowerCase() === "completed") {
       setFilteredTodos(todos.filter((todo) => todo.completed === true));
-      console.log(filteredTodos);
-    } else if (status === "incomplete") {
+    } else if (status.toLowerCase() === "incomplete") {
       setFilteredTodos(todos.filter((todo) => todo.completed === false));
     } else {
       setFilteredTodos(todos);
     }
-
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [status, todos]);
 
   return (
-    <div className="container">
-      <Form
-        setInputText={setInputText}
-        setTodos={setTodos}
-        inputText={inputText}
-        todos={todos}
-        setStatus={setStatus}
-        isEdit={isEdit}
-      />
-      <TodoList
-        todos={todos}
-        setIsEdit={setIsEdit}
-        setTodos={setTodos}
-        setInputText={setInputText}
-        filteredTodos={filteredTodos}
-      />
+    <div className="todoApp">
+      <div className="container">
+        <Form
+          setInputText={setInputText}
+          setTodos={setTodos}
+          inputText={inputText}
+          todos={todos}
+          setStatus={setStatus}
+          status={status}
+          isEdit={isEdit}
+        />
+        <TodoList
+          todos={todos}
+          setIsEdit={setIsEdit}
+          setTodos={setTodos}
+          setInputText={setInputText}
+          filteredTodos={filteredTodos}
+        />
+      </div>
     </div>
   );
 };

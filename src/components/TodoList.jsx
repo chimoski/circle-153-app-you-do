@@ -1,4 +1,6 @@
-import React from "react";
+import { MdOutlineDelete } from "react-icons/md";
+import { AiOutlineEdit } from "react-icons/ai";
+import { BsCheck2Square } from "react-icons/bs";
 
 const TodoList = ({ todos, setTodos, setIsEdit, filteredTodos }) => {
   function handleComplete(e, id) {
@@ -34,15 +36,29 @@ const TodoList = ({ todos, setTodos, setIsEdit, filteredTodos }) => {
         return (
           <div className="todo-box" key={id}>
             <div className={`${completed ? "completed" : ""}`}>{text}</div>
-            <button onClick={(e) => handleComplete(e, id, todo)}>{`${
-              completed ? "completed" : "incomplete"
-            }`}</button>
-            <button onClick={() => handleEdit(id)} disabled={completed}>
-              edit
-            </button>
-            <button onClick={() => handleDelete(index)} disabled={completed}>
-              Delete
-            </button>
+
+            <div className="todo-btns">
+              <button
+                className="btn todo-btn"
+                onClick={(e) => handleComplete(e, id, todo)}
+              >
+                <BsCheck2Square />
+              </button>
+              <button
+                onClick={() => handleEdit(id)}
+                disabled={completed}
+                className="btn todo-btn"
+              >
+                <AiOutlineEdit />
+              </button>
+              <button
+                onClick={() => handleDelete(index)}
+                disabled={completed}
+                className="btn todo-btn"
+              >
+                <MdOutlineDelete />
+              </button>
+            </div>
           </div>
         );
       })}

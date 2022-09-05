@@ -1,4 +1,5 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { IoIosArrowDown } from "react-icons/io";
 
 const Form = ({
   setInputText,
@@ -6,9 +7,11 @@ const Form = ({
   inputText,
   todos,
   setStatus,
+  status,
   isEdit,
 }) => {
   const inputRef = useRef();
+  const [openSelect, setOpenSelect] = useState(false);
   function handleChange(e) {
     setInputText(e.target.value);
   }
@@ -36,6 +39,13 @@ const Form = ({
     setInputText("");
   }
 
+  function handleSelected(e) {
+    e.preventDefault();
+    setOpenSelect((p) => !p);
+    setStatus(e.target.dataset.value);
+    console.log(openSelect);
+  }
+
   useEffect(() => {
     if (isEdit !== null) {
       setInputText(isEdit.text);
@@ -45,18 +55,18 @@ const Form = ({
 
   return (
     <div>
-      <form style={{ display: "flex", justifyContent: "space-between" }}>
+      <form className="form">
         <div>
           <input
             value={inputText}
-            className="input"
+            className="input input-text"
             type="text"
             placeholder="enter your todo"
             onChange={handleChange}
             ref={inputRef}
           />
           <input
-            className="input"
+            className="input input-btn btn"
             type="submit"
             value="Add"
             onClick={handleAddTodo}
@@ -64,11 +74,31 @@ const Form = ({
         </div>
 
         <div>
-          <select onChange={(e) => setStatus(e.target.value)}>
-            <option value="all">All</option>
-            <option value="completed">Completed</option>
-            <option value="incomplete">incomplete</option>
-          </select>
+          <div className="select">
+            <div className={`select-header ${openSelect ? "rotate" : ""}`}>
+              <p>{status}</p>
+              <button
+                className="btn arrow-btn"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setOpenSelect((p) => !p);
+                }}
+              >
+                <IoIosArrowDown />
+              </button>
+            </div>
+            <ul className={`select-container ${openSelect ? "" : "hide"}`}>
+              <li data-value="All" onClick={handleSelected}>
+                All
+              </li>
+              <li data-value="Completed" onClick={handleSelected}>
+                Completed
+              </li>
+              <li data-value="Incomplete" onClick={handleSelected}>
+                Incomplete
+              </li>
+            </ul>
+          </div>
         </div>
       </form>
     </div>
