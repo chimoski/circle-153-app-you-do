@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const Form = ({
   setInputText,
@@ -8,6 +8,7 @@ const Form = ({
   setStatus,
   isEdit,
 }) => {
+  const inputRef = useRef();
   function handleChange(e) {
     setInputText(e.target.value);
   }
@@ -32,11 +33,13 @@ const Form = ({
       return todo.id === id ? { completed, id, text } : todo;
     });
     setTodos(newTodos);
+    setInputText("");
   }
 
   useEffect(() => {
     if (isEdit !== null) {
       setInputText(isEdit.text);
+      inputRef.current.focus();
     }
   }, [isEdit]);
 
@@ -50,6 +53,7 @@ const Form = ({
             type="text"
             placeholder="enter your todo"
             onChange={handleChange}
+            ref={inputRef}
           />
           <input
             className="input"
