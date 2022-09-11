@@ -1,8 +1,9 @@
 import { MdOutlineDelete } from "react-icons/md";
 import { AiOutlineEdit } from "react-icons/ai";
 import { BsCheck2Square } from "react-icons/bs";
+import { filterTodos } from "./filterTodos";
 
-const TodoList = ({ todos, setTodos, setIsEdit, filteredTodos }) => {
+const TodoList = ({ todos, setTodos, setIsEdit, status }) => {
   function handleComplete(e, id) {
     setTodos(
       todos.map((todo) => {
@@ -29,9 +30,11 @@ const TodoList = ({ todos, setTodos, setIsEdit, filteredTodos }) => {
     setTodos(newTodos);
   }
 
+  const visibleTodo = filterTodos(todos, status);
+
   return (
     <>
-      {filteredTodos?.map((todo, index) => {
+      {visibleTodo.map((todo, index) => {
         const { id, completed, text } = todo;
         return (
           <div className="todo-box" key={id}>
