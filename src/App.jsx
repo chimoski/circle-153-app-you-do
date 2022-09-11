@@ -2,31 +2,13 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import Form from "./components/Form";
 import TodoList from "./components/TodoList";
+import useLocalStorage from "./utils/useLocalStorage";
 
 const App = () => {
+  const [todos, setTodos] = useLocalStorage("todos", []);
   const [inputText, setInputText] = useState("");
-  const [todos, setTodos] = useState([]);
   const [isEdit, setIsEdit] = useState(null);
-  const [filteredTodos, setFilteredTodos] = useState([]);
   const [status, setStatus] = useState("All");
-
-  useEffect(() => {
-    const todoLists = JSON.parse(localStorage.getItem("todos"));
-    if (todoLists) {
-      setTodos(todoLists);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (status.toLowerCase() === "completed") {
-      setFilteredTodos(todos.filter((todo) => todo.completed === true));
-    } else if (status.toLowerCase() === "incomplete") {
-      setFilteredTodos(todos.filter((todo) => todo.completed === false));
-    } else {
-      setFilteredTodos(todos);
-    }
-    localStorage.setItem("todos", JSON.stringify(todos));
-  }, [status, todos]);
 
   return (
     <div className="todoApp">
@@ -45,7 +27,7 @@ const App = () => {
           setIsEdit={setIsEdit}
           setTodos={setTodos}
           setInputText={setInputText}
-          filteredTodos={filteredTodos}
+          status={status}
         />
       </div>
     </div>
@@ -53,3 +35,21 @@ const App = () => {
 };
 
 export default App;
+
+// useEffect(() => {
+//   const todoLists = JSON.parse(localStorage.getItem("todos"));
+//   if (todoLists) {
+//     setTodos(todoLists);
+//   }
+// }, []);
+
+// useEffect(() => {
+//   if (status.toLowerCase() === "completed") {
+//     setFilteredTodos(todos.filter((todo) => todo.completed === true));
+//   } else if (status.toLowerCase() === "incomplete") {
+//     setFilteredTodos(todos.filter((todo) => todo.completed === false));
+//   } else {
+//     setFilteredTodos(todos);
+//   }
+//   localStorage.setItem("todos", JSON.stringify(todos));
+// }, [status, todos]);

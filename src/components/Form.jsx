@@ -43,7 +43,6 @@ const Form = ({
     e.preventDefault();
     setOpenSelect((p) => !p);
     setStatus(e.target.dataset.value);
-    console.log(openSelect);
   }
 
   useEffect(() => {

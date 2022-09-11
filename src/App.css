@@ -83,10 +83,12 @@ body {
 
 .input-btn {
   padding-inline: 1.5rem;
+  cursor: pointer;
 }
 
 .input-text {
   margin-right: 0.5rem;
+  width: 65%;
 }
 
 .input-text:focus {
@@ -167,4 +169,19 @@ body {
   cursor: pointer;
   color: #000;
   background-color: #fff;
+}
+
+@media (max-width: 620px) {
+  .form {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .input-text {
+    width: 100%;
+  }
+
+  :where(.select, .input-btn) {
+    margin-top: 1rem;
+  }
 }
